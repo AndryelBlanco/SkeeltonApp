@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import './custom.css';
 import '../src/styles/root.scss';
+import HeaderApp from './components/Header/HeaderApp';
+import FooterApp from './components/Footer/FooterApp';
+import AppContent from './components/AppContent/AppContent';
 
 export default class App extends Component {
   static displayName = App.name;
 
   render () {
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
+      <div className='page-container'>
+        <DndProvider backend={HTML5Backend}>
+          <HeaderApp />
+          <Route exact path='/:id' component={AppContent} />
+        </DndProvider>
+      </div>
     );
   }
 }

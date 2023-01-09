@@ -1,0 +1,40 @@
+.app-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 90vh;
+  position: relative;
+
+  margin-top: 1%;
+  border: 1px solid rgba(255, 0, 0, 0.192);
+  padding-top: 5rem;
+
+  .components-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+
+    width: 50%;
+
+  }
+
+  .preview-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+
+    width: 50%;
+
+    .mockup{
+      width: 360px;
+      height: 680px;
+      background-color: #fff;
+      border-radius: 12px;
+    }
+  }
+}
+

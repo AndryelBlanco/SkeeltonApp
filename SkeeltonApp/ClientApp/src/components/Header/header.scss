@@ -1,0 +1,22 @@
+header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: flex-start;
+  justify-self: flex-start;
+  width: 100%;
+  height: 60px;
+
+  background-color: var(--app-background);
+  border-bottom: 1px solid var(--app-red);
+  padding: 0 1rem;
+}
+
+.profile-settings{
+  cursor: pointer;
+  transition: .4s ease;
+
+  &:hover{
+    filter: opacity(.6);
+  }
+}
