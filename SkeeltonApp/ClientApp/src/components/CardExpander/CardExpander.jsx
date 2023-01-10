@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import { FormGroup, Input, Label, PopoverBody, PopoverHeader, UncontrolledPopover } from 'reactstrap';
+import { Button, FormGroup, Input, Label, PopoverBody, PopoverHeader, UncontrolledPopover } from 'reactstrap';
 import BaseButton from '../ButtonComponents/BaseButton';
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
 import './cardExpander.scss';
+import { AppDataContext } from '../../context/AppDataContext';
 
 const CardExpander = ({ cardTitle, cardData }) => {
+
+  const { pageComponents, setPageComponents } = useContext(AppDataContext);
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -27,6 +30,23 @@ const CardExpander = ({ cardTitle, cardData }) => {
 
   function handleBaseButtonClick(){
 
+  }
+
+  function handleAddButton(buttonType){
+    switch(buttonType){
+      case 'Flat':
+        console.log("AANTES", pageComponents);
+
+        setPageComponents( prevState => ({
+          ...prevState,
+          Components: {
+            flatButtonSettings
+          }
+        }));
+
+        console.log("DPS", pageComponents);
+        break;
+    }
   }
 
   function buttonSettingsPopover(item, buttonType){
@@ -95,6 +115,9 @@ const CardExpander = ({ cardTitle, cardData }) => {
               onChange={(e) => setFlatButtonSettings({...flatButtonSettings, href: e.target.value})}
             />
           </FormGroup>
+          <div className='d-flex justify-content-end'>
+            <Button className='mt-3 btn-success' variant="success" onClick={() => handleAddButton('Flat')}>Add</Button>
+          </div>
         </PopoverBody>
       </UncontrolledPopover>
     );

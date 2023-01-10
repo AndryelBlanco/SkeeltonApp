@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppDataContext } from '../../context/AppDataContext';
 
 import './appContent.scss';
 import mockupData from '../mockups/itens';
@@ -8,9 +9,6 @@ import PreviewContainer from '../PreviewContent/PreviewContainer/PreviewContaine
 
 //To get id use match.params.id
 const AppContent = ({ match }) => {
-  const [pageComponents, setPageComponents] = React.useState();
-  
-
   
   return (
    

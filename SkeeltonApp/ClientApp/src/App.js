@@ -8,6 +8,7 @@ import '../src/styles/root.scss';
 import HeaderApp from './components/Header/HeaderApp';
 import FooterApp from './components/Footer/FooterApp';
 import AppContent from './components/AppContent/AppContent';
+import AppDataProvider from './context/AppDataContext';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -15,10 +16,12 @@ export default class App extends Component {
   render () {
     return (
       <div className='page-container'>
-        <DndProvider backend={HTML5Backend}>
-          <HeaderApp />
-          <Route exact path='/:id' component={AppContent} />
-        </DndProvider>
+        <AppDataProvider>
+          <DndProvider backend={HTML5Backend}>
+            <HeaderApp />
+            <Route exact path='/:id' component={AppContent} />
+          </DndProvider>
+        </AppDataProvider>
       </div>
     );
   }

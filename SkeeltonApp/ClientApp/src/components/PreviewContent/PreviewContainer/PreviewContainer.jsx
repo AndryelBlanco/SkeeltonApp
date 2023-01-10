@@ -19,9 +19,6 @@ const PreviewContainer = () => {
         return arrayMove(pageComponents, activeIndex, overIndex);
       });
     }
-
-    console.log("ACTIVE", active);
-    console.log("OVER", over);
   }
 
   return (
