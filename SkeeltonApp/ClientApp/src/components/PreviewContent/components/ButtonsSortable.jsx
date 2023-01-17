@@ -1,9 +1,14 @@
 import React from 'react';
+
 import { useSortable } from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 
-const ButtonsSortable = (item) => {
+import './ButtonsSortable.scss';
+
+const ButtonsSortable = ({item}) => {
   
+  React.useEffect(() => console.log("ITEM", item), [item])
+
   const {
     attributes,
     listeners,
@@ -15,11 +20,18 @@ const ButtonsSortable = (item) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    display: "flex",
+    alignItems: "center",
+
+    width: "100%",
+    padding: "0.8rem"
   };
 
   return (
-    <div ref={setNodeRef} {...attributes} {...listeners} style={style} >
-      <h1>{item.id}</h1>  
+    <div ref={setNodeRef} {...attributes} {...listeners} style={{...style}} >
+      <a style={{color: item.textColor, backgroundColor: item.backgroundColor}} className='base-button-preview hover-button'>
+        {item.text}  
+      </a>
     </div>
   )
 }

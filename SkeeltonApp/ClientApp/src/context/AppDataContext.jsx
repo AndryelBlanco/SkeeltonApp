@@ -17,9 +17,7 @@ function AppDataProvider({children}){
         singleColor: '#ffea00'
       },
     },
-    Components: {
-  
-    }
+    Components: []
   });
 
   useEffect(() => {

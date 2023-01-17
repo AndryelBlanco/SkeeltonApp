@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { Button, FormGroup, Input, Label, PopoverBody, PopoverHeader, UncontrolledPopover } from 'reactstrap';
-import BaseButton from '../ButtonComponents/BaseButton';
-import { HiOutlineCog6Tooth } from "react-icons/hi2";
-import './cardExpander.scss';
 import { AppDataContext } from '../../context/AppDataContext';
+import { HiOutlineCog6Tooth } from "react-icons/hi2";
+
+import BaseButton from '../ButtonComponents/BaseButton';
+import uuid from 'react-uuid';
+
+import './cardExpander.scss';
 
 const CardExpander = ({ cardTitle, cardData }) => {
 
@@ -12,39 +15,47 @@ const CardExpander = ({ cardTitle, cardData }) => {
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const [flatButtonSettings, setFlatButtonSettings] = useState({
+  const [buttonSettings, setButtonSettings] = useState({
+    template: '',
     backgroundColor: '',
     textColor: '',
     text: '',
     href: '',
+    id: `BTN_${uuid()}`
   }); 
 
-  useEffect(() => {
-    console.log(`flatButtonSettigns`, flatButtonSettings);
-  }, [flatButtonSettings])
+  // useEffect(() => {
+  //   console.log(`buttonSettings`, buttonSettings);
+  // }, [buttonSettings])
   
 
   function handleClick(){
     setIsExpanded(!isExpanded);
   }
 
-  function handleBaseButtonClick(){
-
+  function resetButtonSettings(){
+    setButtonSettings({
+      template: '',
+      backgroundColor: '',
+      textColor: '',
+      text: '',
+      href: '',
+      id: `BTN_${uuid()}`
+    });
   }
 
   function handleAddButton(buttonType){
+    buttonSettings.template = buttonType;
     switch(buttonType){
       case 'Flat':
-        console.log("AANTES", pageComponents);
-
         setPageComponents( prevState => ({
           ...prevState,
-          Components: {
-            flatButtonSettings
-          }
+          Components: [
+            ...prevState.Components,
+            buttonSettings
+          ]
         }));
-
-        console.log("DPS", pageComponents);
+        resetButtonSettings();
         break;
     }
   }
@@ -71,8 +82,8 @@ const CardExpander = ({ cardTitle, cardData }) => {
               name="background-color"
               placeholder="background-color"
               type="color"
-              value={flatButtonSettings.backgroundColor}
-              onChange={(e) => setFlatButtonSettings({...flatButtonSettings, backgroundColor: e.target.value})}
+              value={buttonSettings.backgroundColor}
+              onChange={(e) => setButtonSettings({...buttonSettings, backgroundColor: e.target.value})}
             />
           </FormGroup>
           <FormGroup className='mt-2'>
@@ -84,8 +95,8 @@ const CardExpander = ({ cardTitle, cardData }) => {
               name="flat-text-color"
               placeholder="flat-text-color"
               type="color"
-              value={flatButtonSettings.textColor}
-              onChange={(e) => setFlatButtonSettings({...flatButtonSettings, textColor: e.target.value})}
+              value={buttonSettings.textColor}
+              onChange={(e) => setButtonSettings({...buttonSettings, textColor: e.target.value})}
             />
           </FormGroup>
           <FormGroup className='mt-2'>
@@ -98,8 +109,8 @@ const CardExpander = ({ cardTitle, cardData }) => {
               type="text"
               placeholder="Max 30 characters"
               maxlength="45"
-              value={flatButtonSettings.text}
-              onChange={(e) => setFlatButtonSettings({...flatButtonSettings, text: e.target.value})}
+              value={buttonSettings.text}
+              onChange={(e) => setButtonSettings({...buttonSettings, text: e.target.value})}
             />
           </FormGroup>
           <FormGroup className='mt-2'>
@@ -111,8 +122,8 @@ const CardExpander = ({ cardTitle, cardData }) => {
               name="link"
               type="text"
               placeholder="ex: https://google.com"
-              value={flatButtonSettings.href}
-              onChange={(e) => setFlatButtonSettings({...flatButtonSettings, href: e.target.value})}
+              value={buttonSettings.href}
+              onChange={(e) => setButtonSettings({...buttonSettings, href: e.target.value})}
             />
           </FormGroup>
           <div className='d-flex justify-content-end'>
@@ -145,11 +156,11 @@ const CardExpander = ({ cardTitle, cardData }) => {
                     <BaseButton 
                       key={item.id}
                       title={item.title}
-                      settings={flatButtonSettings}
+                      settings={buttonSettings}
                       item={item}
                       classes={item.classes}
-                      color={flatButtonSettings.backgroundColor}
-                      click={handleBaseButtonClick}
+                      color={buttonSettings.backgroundColor}
+                      // click={handleBaseButtonClick}
                     />
                     <button className='popover-changer' id={`btn-${item.id}`} type="button">
                       <HiOutlineCog6Tooth size={32} color={"#A3A3A3"}/>

@@ -3,20 +3,38 @@ import ButtonsSortable from '../components/ButtonsSortable';
 
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { AppDataContext } from '../../../context/AppDataContext';
+
+import './PreviewContainer.scss';
 
 const PreviewContainer = () => {
+  const { pageComponents, setPageComponents } = React.useContext(AppDataContext);
 
-  const [pageComponents, setPageComponents] = React.useState(["FLAT BUTTON", "GRADIENT BUTTON", "BORDERED BUTTON"]);
+  const [previewComponents, setPreviewComponents] = React.useState([]);
+  const [previewPageStyles, setPreviewPageStyles] = React.useState(null);
+
+  React.useEffect(() => {
+
+    let ComponentsCopy = JSON.parse(JSON.stringify(pageComponents.Components));
+    if(ComponentsCopy.length > 0)
+      setPreviewComponents([...ComponentsCopy]);
+    
+    if(pageComponents.PageStyle)
+      setPreviewPageStyles(pageComponents.PageStyle);
+    
+
+  }, [pageComponents]);
 
   function handleDragEvent(result){
     const {active, over} = result;
-    
+    console.log("RESULT", result)
     if(active.id !== over.id){
-      setPageComponents((pageComponents) => {
-        const activeIndex = pageComponents.indexOf(active.id);
-        const overIndex = pageComponents.indexOf(over.id);
-
-        return arrayMove(pageComponents, activeIndex, overIndex);
+      setPreviewComponents((previewComponents) => {
+        const activeIndex = active.data.current.sortable.index;
+        const overIndex = over.data.current.sortable.index;
+        console.log("ACTIVE INDEX", activeIndex);
+        console.log("OVER INDEX", overIndex);
+        return arrayMove(previewComponents, activeIndex, overIndex);
       });
     }
   }
@@ -28,12 +46,19 @@ const PreviewContainer = () => {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEvent}
         >
-          <h3>Available Buttons</h3>
           <SortableContext
-            items={pageComponents}
+            items={previewComponents}
             strategy={verticalListSortingStrategy}
           >
-            {pageComponents.map(item => <ButtonsSortable key={item} id={item} />)}
+            { previewComponents.length > 0 && 
+              <>
+                {previewComponents.map(item => {
+                  return (
+                    <ButtonsSortable key={item.id} item={item} />
+                  );
+                })}
+              </>
+            }
           </SortableContext>
         </DndContext>
       </div>
