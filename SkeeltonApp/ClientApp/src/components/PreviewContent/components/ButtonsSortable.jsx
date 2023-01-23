@@ -7,8 +7,6 @@ import './ButtonsSortable.scss';
 
 const ButtonsSortable = ({item}) => {
   
-  React.useEffect(() => console.log("ITEM", item), [item])
-
   const {
     attributes,
     listeners,
@@ -29,7 +27,7 @@ const ButtonsSortable = ({item}) => {
 
   return (
     <div ref={setNodeRef} {...attributes} {...listeners} style={{...style}} >
-      <a style={{color: item.textColor, backgroundColor: item.backgroundColor}} className='base-button-preview hover-button'>
+      <a style={{color: item.textColor, backgroundColor: item.backgroundColor}} className={`base-button-preview hover-button ${item.backgroundColor}`}>
         {item.text}  
       </a>
     </div>

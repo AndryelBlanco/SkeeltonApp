@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppDataContext } from '../../context/AppDataContext';
 
 import './appContent.scss';
-import mockupData from '../mockups/itens';
+import {mockupData} from '../mockups/itens';
 
 import CardExpander from '../CardExpander/CardExpander';
 import PreviewContainer from '../PreviewContent/PreviewContainer/PreviewContainer';

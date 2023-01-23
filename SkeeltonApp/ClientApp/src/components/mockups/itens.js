@@ -1,34 +1,31 @@
 const mockupData = {
   buttons:[
     {
-      id: "BTN1",
-      title: "Flat Button",
-      height: 56,
-      color: 'blue',
-      classes: 'flat-button',
-      settings: {
-        backgroundColor: '',
-        textColor: '',
-        href: '',
-      }
+      template: "Flat",
+      backgroundColor: "",
+      textColor: "",
+      text: "",
+      href: "",
+      id: "flat001"
     },
     {
-      id: "BTN2",
-      title: "Gradient",
-      height: 56,
-      color: null,
-      classes: 'gradient-button',
-      settings: {}
-    },
-    {
-      id: "BTN3",
-      title: "Bordered",
-      height: 56,
-      color: null,
-      classes: 'bordered-button',
-      settings: {}
+      template: "Gradient",
+      backgroundColor: "",
+      textColor: "",
+      text: "",
+      href: "",
+      id: "gradient001"
     },
   ]
 }
 
-export default mockupData;
+const colorBoxItens = [
+  'blue-paradise',
+  'red-dragon',
+  'fire-fox',
+  'dark-dungeon',
+  'material-green',
+  'purple-dream'
+]
+
+export {mockupData, colorBoxItens};
