@@ -10,6 +10,7 @@ import uuid from 'react-uuid';
 import './cardExpander.scss';
 import { colorBoxItens } from '../mockups/itens';
 import GradientBox from '../GradientBox/GradientBox';
+import BaseBio from '../BaseBio/BaseBio';
 
 const CardExpander = ({ cardTitle, cardData }) => {
 
@@ -30,6 +31,15 @@ const CardExpander = ({ cardTitle, cardData }) => {
     template: 'Gradient',
     backgroundColor: '',
     textColor: '',
+    text: '',
+    href: '',
+    id: `BTN_${uuid()}`
+  }); 
+
+  const [outlineButtonSettings, setOutlineButtonSettings] = useState({
+    template: 'Outline',
+    backgroundColor: '#fff',
+    textColor: '#fff',
     text: '',
     href: '',
     id: `BTN_${uuid()}`
@@ -62,6 +72,15 @@ const CardExpander = ({ cardTitle, cardData }) => {
       href: '',
       id: `BTN_${uuid()}`
     });
+
+    setOutlineButtonSettings({
+      template: 'Outline',
+      backgroundColor: '#fff',
+      textColor: '#fff',
+      text: '',
+      href: '',
+      id: `BTN_${uuid()}`
+    }); 
   }
 
   function handleAddButton(buttonType){
@@ -83,6 +102,16 @@ const CardExpander = ({ cardTitle, cardData }) => {
           Components: [
             ...prevState.Components,
             gradientButtonSettings
+          ]
+        }));
+        resetButtonsComponents();
+        break;
+      case 'Outline':
+        setPageComponents( prevState => ({
+          ...prevState,
+          Components: [
+            ...prevState.Components,
+            outlineButtonSettings
           ]
         }));
         resetButtonsComponents();
@@ -237,6 +266,78 @@ const CardExpander = ({ cardTitle, cardData }) => {
               </PopoverBody>
             </UncontrolledPopover>
           );
+      case 'outline':
+        return (
+          <UncontrolledPopover
+              flip
+              target={`btn-${item.id}`}
+              placement="right"
+              trigger="legacy"
+              offset='0 8'
+            >
+              <PopoverHeader>
+                {item.title} Button Settings
+              </PopoverHeader>
+              <PopoverBody>
+                <FormGroup>
+                  <Label>
+                    Border Color
+                  </Label>
+                  <Input
+                    id="flat-background"
+                    name="background-color"
+                    placeholder="background-color"
+                    type="color"
+                    value={outlineButtonSettings.backgroundColor}
+                    onChange={(e) => setOutlineButtonSettings({...outlineButtonSettings, backgroundColor: e.target.value})}
+                  />
+                </FormGroup>
+                <FormGroup className='mt-2'>
+                  <Label for="flat-text-color">
+                    Text Color
+                  </Label>
+                  <Input
+                    id="flat-text-color"
+                    name="flat-text-color"
+                    placeholder="flat-text-color"
+                    type="color"
+                    value={outlineButtonSettings.textColor}
+                    onChange={(e) => setOutlineButtonSettings({...outlineButtonSettings, textColor: e.target.value})}
+                  />
+                </FormGroup>
+                <FormGroup className='mt-2'>
+                  <Label for="flat-text">
+                    Button Text
+                  </Label>
+                  <Input
+                    id="flat-text"
+                    name="text"
+                    type="text"
+                    placeholder="Max 30 characters"
+                    maxlength="45"
+                    value={outlineButtonSettings.text}
+                    onChange={(e) => setOutlineButtonSettings({...outlineButtonSettings, text: e.target.value})}
+                  />
+                </FormGroup>
+                <FormGroup className='mt-2'>
+                  <Label for="flat-link">
+                    Button link
+                  </Label>
+                  <Input
+                    id="flat-link"
+                    name="link"
+                    type="text"
+                    placeholder="ex: https://google.com"
+                    value={outlineButtonSettings.href}
+                    onChange={(e) => setOutlineButtonSettings({...outlineButtonSettings, href: e.target.value})}
+                  />
+                </FormGroup>
+                <div className='d-flex justify-content-end'>
+                  <Button className='mt-3 btn-success' variant="success" onClick={() => handleAddButton('Outline')}>Add</Button>
+                </div>
+              </PopoverBody>
+            </UncontrolledPopover>
+        );
     }
   }
 
@@ -254,38 +355,54 @@ const CardExpander = ({ cardTitle, cardData }) => {
       </div>
       {isExpanded ? 
         <div className={isExpanded ? 'card-content visible' : 'card-content hidden'}>
-          {cardData.map((item) => {
-            switch(item.template){
-              case 'Flat':
-                return(
-                  <div className='component-row' key={item.id}>
-                    <BaseButton 
-                      item={flatButtonSettings}
-                    />
-                    <button className='popover-changer' id={`btn-${item.id}`} type="button">
-                      <HiOutlineCog6Tooth size={32} color={"#A3A3A3"}/>
-                    </button>
-                    {flatButtonSettingsPopover(item, 'flat')}
-                  </div>
-                )
-              case 'Gradient':
-                return(
-                  <div className='component-row' key={item.id}>
-                    <BaseButton 
-                      item={gradientButtonSettings}
-                    />
-                    <button className='popover-changer' id={`btn-${item.id}`} type="button">
-                      <HiOutlineCog6Tooth size={32} color={"#A3A3A3"}/>
-                    </button>
-                    {flatButtonSettingsPopover(item, 'gradient')}
-                  </div>
-                )
-              // case 'BTN3':
-              //   return(
-              //     <h1>BTN3</h1>
-              //   )
-            }
-          })}
+          {cardTitle == "Buttons" ?
+            <>
+              {cardData.map((item) => {
+                switch(item.template){
+                  case 'Flat':
+                    return(
+                      <div className='component-row' key={item.id}>
+                        <BaseButton 
+                          item={flatButtonSettings}
+                        />
+                        <button className='popover-changer' id={`btn-${item.id}`} type="button">
+                          <HiOutlineCog6Tooth size={32} color={"#A3A3A3"}/>
+                        </button>
+                        {flatButtonSettingsPopover(item, 'flat')}
+                      </div>
+                    )
+                  case 'Gradient':
+                    return(
+                      <div className='component-row' key={item.id}>
+                        <BaseButton 
+                          item={gradientButtonSettings}
+                        />
+                        <button className='popover-changer' id={`btn-${item.id}`} type="button">
+                          <HiOutlineCog6Tooth size={32} color={"#A3A3A3"}/>
+                        </button>
+                        {flatButtonSettingsPopover(item, 'gradient')}
+                      </div>
+                    )
+                  case 'Outline':
+                    return(
+                      <div className='component-row' key={item.id}>
+                        <BaseButton 
+                          item={outlineButtonSettings}
+                        />
+                        <button className='popover-changer' id={`btn-${item.id}`} type="button">
+                          <HiOutlineCog6Tooth size={32} color={"#A3A3A3"}/>
+                        </button>
+                        {flatButtonSettingsPopover(item, 'outline')}
+                      </div>
+                    )
+                }
+              })}
+            </>
+          : 
+            <>
+              <BaseBio/>
+            </>
+          }
         </div>
         :
         null

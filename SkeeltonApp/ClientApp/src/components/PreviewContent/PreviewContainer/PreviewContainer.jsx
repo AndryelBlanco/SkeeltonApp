@@ -6,6 +6,7 @@ import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-ki
 import { AppDataContext } from '../../../context/AppDataContext';
 
 import './PreviewContainer.scss';
+import Avatar from '../Avatar/Avatar';
 
 const PreviewContainer = () => {
   const { pageComponents, setPageComponents } = React.useContext(AppDataContext);
@@ -27,13 +28,10 @@ const PreviewContainer = () => {
 
   function handleDragEvent(result){
     const {active, over} = result;
-    console.log("RESULT", result)
     if(active.id !== over.id){
       setPreviewComponents((previewComponents) => {
         const activeIndex = active.data.current.sortable.index;
         const overIndex = over.data.current.sortable.index;
-        console.log("ACTIVE INDEX", activeIndex);
-        console.log("OVER INDEX", overIndex);
         return arrayMove(previewComponents, activeIndex, overIndex);
       });
     }
@@ -42,6 +40,9 @@ const PreviewContainer = () => {
   return (
     <div className='preview-container'>
       <div className='mockup'>
+        <Avatar
+
+        />
         <DndContext
           collisionDetection={closestCenter}
           onDragEnd={handleDragEvent}

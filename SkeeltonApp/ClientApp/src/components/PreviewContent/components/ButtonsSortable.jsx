@@ -27,7 +27,7 @@ const ButtonsSortable = ({item}) => {
 
   return (
     <div ref={setNodeRef} {...attributes} {...listeners} style={{...style}} >
-      <a style={{color: item.textColor, backgroundColor: item.backgroundColor}} className={`base-button-preview hover-button ${item.backgroundColor}`}>
+      <a style={item.template != 'Outline' ? {color: item.textColor, backgroundColor: item.backgroundColor} : {color: item.textColor, backgroundColor: "none", border: `2.5px solid ${item.backgroundColor}`}} className={`base-button-preview hover-button ${item.backgroundColor}`}>
         {item.text}  
       </a>
     </div>

@@ -5,6 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import './custom.css';
 import '../src/styles/root.scss';
+import '../src/styles/rootForms.scss';
 import HeaderApp from './components/Header/HeaderApp';
 import FooterApp from './components/Footer/FooterApp';
 import AppContent from './components/AppContent/AppContent';

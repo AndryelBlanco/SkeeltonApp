@@ -8,6 +8,10 @@ function AppDataProvider({children}){
 
   const [pageComponents, setPageComponents] = React.useState({
     id: '',
+    Bio: {
+      nickname: '',
+      avatarURL: '',
+    },
     PageStyle: {
       background: {
         gradient: false,

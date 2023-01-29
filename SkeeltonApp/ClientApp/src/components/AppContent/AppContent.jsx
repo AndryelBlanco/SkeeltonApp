@@ -14,6 +14,7 @@ const AppContent = ({ match }) => {
    
       <main className='app-content'>
         <div className='components-container'>
+          <CardExpander cardTitle={"Bio"} cardData={[]}/>
           <CardExpander cardTitle={"Buttons"} cardData={mockupData.buttons}/>
         </div>
         <PreviewContainer />

@@ -16,7 +16,15 @@ const mockupData = {
       href: "",
       id: "gradient001"
     },
-  ]
+    {
+      template: "Outline",
+      backgroundColor: "#fff",
+      textColor: "#fff",
+      text: "",
+      href: "",
+      id: "outline001"
+    },
+  ],
 }
 
 const colorBoxItens = [
